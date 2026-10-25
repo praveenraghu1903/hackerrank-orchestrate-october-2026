@@ -1,0 +1,31 @@
+﻿================================================================================
+GHOST DATA STILL EXISTS - AI DELETION AUDIT AGENT
+CHAT TRANSCRIPT & DEVELOPMENT LOG
+================================================================================
+
+1. PROBLEM ANALYSIS & ARCHITECTURE PLANNING
+--------------------------------------------------------------------------------
+- Objective: Audit 518 user deletion requests for Northstar Shop.
+- Determine Case Status: COMPLETE, INCOMPLETE, or NOT_APPLICABLE.
+- Identifier Graph: Map current primary email to historical user_ids, old emails,
+  phone numbers, display names, and email hashes using user_audit_log.csv.
+- Multi-Format Evidence Scanning: Search system_activity.csv and evidence files
+  (JSON, SQL dumps, text logs, SQLite databases) prior to audit_at timestamp.
+- Step Generation & Canonical Ordering:
+  - Phase 1: FINDING (REPORT_REMAINING_RECORD, REPORT_EXPOSED_PII, REPORT_ACTIVE_DATA_FLOW, REPORT_RESTORE_RISK)
+  - Phase 2: REMEDIATION (DISABLE_DATA_FLOW, BLOCK_RESTORE, DELETE_RECORD, REDACT_RECORD, ANONYMIZE_RECORD)
+  - Phase 3: VERIFICATION (VERIFY_RECORD_ABSENT, VERIFY_RECORD_PRESENT, VERIFY_RECORD_REDACTED, VERIFY_RECORD_ANONYMIZED, VERIFY_DATA_FLOW_DISABLED, VERIFY_RESTORE_BLOCKED)
+  - Sort order: Phase Priority -> Operation Priority -> system_id -> resource_id.
+
+2. MODULE IMPLEMENTATION & REFINEMENT
+--------------------------------------------------------------------------------
+- code/identity_resolver.py: Traced identity changes in user_audit_log.csv.
+- code/evidence_auditor.py: Implemented SQLite reflection & phone normalization.
+- code/decision_engine.py: Implemented strict canonical step sorting.
+- code/main.py: Processed all 518 cases into output.csv (519 lines).
+
+3. EVALUATION & REPORTS
+--------------------------------------------------------------------------------
+- Generated evaluation_report.md and usage_report.md under code/evaluation/.
+- Created code.zip submission archive.
+================================================================================
